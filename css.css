@@ -1,0 +1,59 @@
+
+.banner {
+  width: 100%; /* makes the banner span the full width of the screen */
+  height: 80px; /* sets the height of the banner */
+  background-color: #F2DB8E; /* sets the background color of the banner */
+  position: fixed; /* positions the banner at a fixed location on the screen */
+  top: 0; /* sets the banner to the top of the screen */
+  left: 0; /* aligns the banner to the left of the screen */
+}
+
+.banner-content{
+  display: flex; /* flex container */
+  justify-content: space-between; /* align the content to the right */
+  align-items: center; /* center the items vertically */
+  width: 100%; /* make the div occupy the entire width of the parent */
+}
+
+.banner-right {
+  height: 80px; /* sets the height of the image */
+  margin-right: auto; /* adds a margin to the right of the image */
+}
+
+.banner-center {
+	height: 80px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.button-container {
+	margin-top: 80px;
+    display: flex; /* set the container to be a flex container */
+    justify-content: center; /* center the container horizontally */
+    align-items: center; /* center the container vertically */
+    /*height: 100px; /* set the container to take up the full height of the viewport */
+	grid-gap: 100px;
+	width: 100%;
+}
+
+.comic {
+	margin:0 auto;
+	text-align: center;
+	/*width: 60%;*/
+}
+
+@media only screen and (max-width: 999px) {
+  .scalable {
+    width: 100%;
+    max-width: 100%;
+    object-fit: contain;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .scalable{
+		max-width: 60%;
+  }
+}
