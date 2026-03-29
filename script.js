@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const comics = [
+    "Images/Comics/260316-brazillian.jpg",
     "Images/Comics/260225-jumpon.jpg",
     "Images/Comics/260225-mutton.jpg",
     "Images/Comics/260306-doomscroll.jpg",
