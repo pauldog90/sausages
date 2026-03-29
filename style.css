@@ -1,0 +1,166 @@
+/* === Reset === */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* Tune once here */
+:root {
+  --icon-size: 75px;   /* size of icon-only buttons */
+}
+
+/* === Layout: header | comic (fills leftover) | caption | controls === */
+html, body { height: 100%; overflow-x: hidden;}
+body {
+  background-color: #69f;
+  color: #fff;
+  font-family: Arial, sans-serif;
+
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto auto; /* header | comic | caption | controls */
+  min-height: 100dvh; /* mobile-safe viewport height */
+}
+
+/* === Branding Header === */
+#branding {
+  width: 100%;
+  padding: 0;
+  text-align: center;
+  background-color: #FFCC05;
+  border-bottom: 3px solid #69f;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  
+  overflow: hidden;
+}
+#branding img { max-height: 100px; width: auto; max-width: 100vw; max-height: 10vh; }
+#branding h1 { font-size: 1.5rem; color: #f5a142; margin: 0; }
+
+/* === Comic area (uses ALL remaining height) === */
+#comic-container {
+  min-height: 0;              /* allow this row to shrink */
+  display: flex;
+  align-items: center;         /* center the image vertically */
+  justify-content: center;     /* center horizontally */
+  overflow: hidden;            /* letterbox if needed */
+  padding: 0;
+  width: 100%;
+}
+
+/* The image fills container HEIGHT first, never exceeds WIDTH */
+#comic {
+  display: block;
+  height: 100%;        /* fill available height */
+  width: auto;         /* maintain aspect ratio */
+  max-width: 100%;     /* never overflow sideways */
+  object-fit: contain; /* safety inside bounds */
+  border-radius: 6px;
+}
+
+/* === Caption === */
+#caption {
+  margin: 3px 12px 0;
+  font-size: 1rem;
+  color: #ccc;
+  text-align: center;
+}
+
+/* === Controls bar === */
+#controls {
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  background-color: rgba(0,0,0,0.7);
+  width: 100%;
+}
+
+/* Default button styling (for non-icon or icon+label buttons) */
+button {
+  background: #444;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+button:hover { background: #666; }
+
+/* Lay out icon + label neatly (only applies to non-icon-only buttons) */
+#controls button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+/* Constrain icons inside regular buttons */
+#controls button .icon {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  flex: 0 0 var(--icon-size);
+  display: block;
+  object-fit: contain;
+}
+
+/* === Icon-only buttons (make the image BE the button) === */
+/* Add class="icon-btn" to a <button> to activate this style */
+#controls button.icon-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin: 0;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  /* override the inline-flex above */
+  display: inline-block !important;
+  line-height: 0; /* remove inline gap */
+  width: var(--icon-size);
+  height: var(--icon-size);
+  cursor: pointer;
+}
+
+/* The image exactly fills the button box */
+#controls button.icon-btn .icon {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none;
+  display: block;
+  object-fit: contain;
+}
+
+/* Visually hide any text label inside icon-only buttons, but keep for a11y */
+#controls button.icon-btn .label {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  border: 0 !important;
+}
+
+/* Interaction polish for icon-only */
+#controls button.icon-btn:hover   .icon { filter: brightness(1.15); }
+#controls button.icon-btn:active  .icon { transform: scale(0.95); }
+#controls button.icon-btn:focus-visible {
+  outline: 2px solid #ffcc00;
+  outline-offset: 2px;
+}
+
+/* Bigger, easier targets on touch devices */
+@media (pointer: coarse) {
+  :root { --icon-size: 36px; }
+}
+
+/* === Mobile tweaks for text buttons (if you still use them) === */
+@media (max-width: 768px) {
+  button { font-size: 0.9rem; padding: 8px 12px; }
+}
