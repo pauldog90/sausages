@@ -1,3 +1,4 @@
+// List of comics
 document.addEventListener('DOMContentLoaded', () => {
   const comics = [
     "Images/Comics/260302-birdinthehand.jpg",
@@ -136,9 +137,31 @@ document.addEventListener('DOMContentLoaded', () => {
     "Images/Comics/SausageBirdBread1.jpg"
   ].map(p => p.trim());
 
-  // Optional captions
+  // New user
+  let hasNavigated = false;
+
+  // Track button clicks / events
+  function trackEvent(eventName, params = {}) {
+    if (typeof window.gtag === "function") {
+      window.gtag("event", eventName, params);
+    }
+  }
+  function trackNavigation(method) {
+  // track navigation method
+    trackEvent("comic_navigation", { method });
+
+    // Only fire once per intial page load
+    if (!hasNavigated) {
+      trackEvent("multi_comic_session", {
+        triggered_by: method
+      });
+      hasNavigated = true;
+    }
+  }
+  // Optional captions - cba doing this atm
   const captions = { };
 
+  // Start at top of the list
   let currentIndex = 0;
 
   // Elements
@@ -152,8 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error("Missing required elements (#comic, #caption, #prev-btn, #next-btn, #random-btn).");
     return;
   }
-
-  // assumes you already have: const comics = [ "Images/Comics/....jpg", ... ];
 
   // Helper: file base name without extension
   function fileBase(path) {
@@ -178,14 +199,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function nextComic() { showComic(currentIndex - 1); }  // array is newest-first
-  function prevComic() { showComic(currentIndex + 1); }
+  function nextComic() {
+    trackNavigation("next");
+    showComic(currentIndex - 1);
+  }
+
+  function prevComic() {
+    trackNavigation("previous");
+    showComic(currentIndex + 1);
+  }
 
   function randomComic() {
     let randomIndex;
     do {
       randomIndex = Math.floor(Math.random() * comics.length);
     } while (randomIndex === currentIndex && comics.length > 1);
+
+    trackNavigation("random");
     showComic(randomIndex);
   }
 
@@ -240,4 +270,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const hashIndex = getComicFromHash();
   if (hashIndex !== null) showComic(hashIndex);
   else showComic(currentIndex);
+
+
+
+
 });
