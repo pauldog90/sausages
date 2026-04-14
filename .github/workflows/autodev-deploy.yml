@@ -1,8 +1,8 @@
-name: Deploy website to dev
+name: Deploy to Dev
 
 on:
   push:
-    branches:
+    branches-ignore:
       - main
   workflow_dispatch:
 
