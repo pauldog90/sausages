@@ -1,6 +1,7 @@
 // List of comics
 document.addEventListener('DOMContentLoaded', () => {
   const comics = [
+    "Images/Comics/260416-curry.jpg",
     "Images/Comics/260402-recipe.jpg",
     "Images/Comics/260325-mordor.jpg",
     "Images/Comics/260302-birdinthehand.jpg",
