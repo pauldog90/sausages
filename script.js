@@ -48,8 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
  function updateButtons() {
-  prevBtn.disabled = currentIndex === 0;
-  nextBtn.disabled = currentIndex === comics.length - 1;
+  nextBtn.disabled = currentIndex === 0;
+  prevBtn.disabled = currentIndex === comics.length - 1;
 }
 
 function showComic(index) {
@@ -72,13 +72,13 @@ function showComic(index) {
   updateButtons();
 }
 
-function nextComic() {
+function prevComic() {
   if (currentIndex >= comics.length - 1) return;
-  trackNavigation("next");
+  trackNavigation("previous");
   showComic(currentIndex + 1);
 }
 
-function prevComic() {
+function nextComic() {
   if (currentIndex <= 0) return;
   trackNavigation("previous");
   showComic(currentIndex - 1);
