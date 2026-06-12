@@ -38,6 +38,12 @@
 	width: 100%;
 }
 
+button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .comic {
 	margin:0 auto;
 	text-align: center;
