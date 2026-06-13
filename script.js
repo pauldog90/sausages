@@ -35,6 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const captionText = document.getElementById("caption");
   const prevBtn     = document.getElementById("prev-btn");
   const nextBtn     = document.getElementById("next-btn");
+  const oldestBtn   = document.getElementById("oldest-btn");
+  const newestBtn   = document.getElementById("newest-btn");
   const randomBtn   = document.getElementById("random-btn");
 
   if (!comicImg || !captionText || !prevBtn || !nextBtn || !randomBtn) {
@@ -50,6 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
  function updateButtons() {
   nextBtn.disabled = currentIndex === 0;
   prevBtn.disabled = currentIndex === comics.length - 1;
+  newestBtn.disabled = currentIndex === 0;
+  oldestBtn.disabled = currentIndex === comics.length - 1; 
 }
 
 function showComic(index) {
@@ -84,20 +88,32 @@ function nextComic() {
   showComic(currentIndex - 1);
 }
 
-  function randomComic() {
-    let randomIndex;
-    do {
-      randomIndex = Math.floor(Math.random() * comics.length);
-    } while (randomIndex === currentIndex && comics.length > 1);
+function randomComic() {
+  let randomIndex;
+  do {
+    randomIndex = Math.floor(Math.random() * comics.length);
+  } while (randomIndex === currentIndex && comics.length > 1);
 
-    trackNavigation("random");
-    showComic(randomIndex);
-  }
+  trackNavigation("random");
+  showComic(randomIndex);
+}
+
+function newestComic() {
+  trackNavigation("newest");
+  showComic(0);
+}
+
+function oldestComic() {
+  trackNavigation("oldest");
+  showComic(comics.length - 1);
+}
 
   // Event listeners
   nextBtn.addEventListener("click", nextComic);
   prevBtn.addEventListener("click", prevComic);
   randomBtn.addEventListener("click", randomComic);
+  newestBtn.addEventListener("click", newestComic);
+  oldestBtn.addEventListener("click", oldestComic);
 
   // Swipe gestures
   let startX = 0, startY = 0;
