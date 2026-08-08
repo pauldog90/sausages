@@ -1,4 +1,5 @@
 window.comics = [
+    "Images/Comics/260618-baking.jpg",
     "Images/Comics/260612-homepool.jpg",
     "Images/Comics/260709-worldcup.jpg",
     "Images/Comics/260622-call.jpg",
